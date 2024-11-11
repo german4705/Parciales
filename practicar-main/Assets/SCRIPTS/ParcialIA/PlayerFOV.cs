@@ -23,7 +23,7 @@ public class PlayerFOV : MonoBehaviour
             }else
             {
                 //enemy.GetComponent<Renderer>().material.color = Color.white;
-                Debug.DrawLine(transform.position, enemy.transform.position, Color.red);
+                //Debug.DrawLine(transform.position, enemy.transform.position, Color.red);
             }
         }
     }
@@ -35,12 +35,12 @@ public class PlayerFOV : MonoBehaviour
         
         if(  dir.magnitude < viewRadius)
         {
-            Debug.Log("dentro de la pizza");
+           
             if (Vector3.Angle(transform.forward, dir)<viewAngle/2)
             {
                 if(!Physics.Raycast(transform.position,dir,dir.magnitude,wallLayer))
                 {
-                    Debug.DrawLine(transform.position, obj.transform.position,Color.blue);
+                    //Debug.DrawLine(transform.position, obj.transform.position,Color.blue);
                     return true;
                     
                 }

@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class TestPatrol : MonoBehaviour
+
+   
 {
-    public List<GameObject> waypoints; // Lista de waypoints para la patrulla
-    public float speed = 2f; // Velocidad de movimiento entre waypoints
-    public float rotationSpeed = 5f; // Velocidad de rotación para mirar hacia el waypoint
+    public List<GameObject> waypoints = new List<GameObject>();
+    private int currentWaypointIndex = 0;
+    public float rotationSpeed;
+    public float speed;
 
-    private int currentWaypointIndex = 0; // Índice del waypoint actual
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
     void Update()
     {
         // Verificamos que haya waypoints en la lista
@@ -36,3 +44,4 @@ public class NewBehaviourScript : MonoBehaviour
         }
     }
 }
+

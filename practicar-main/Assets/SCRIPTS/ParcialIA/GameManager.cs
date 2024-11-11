@@ -8,9 +8,17 @@ public class GameManager : MonoBehaviour
     public List<Node> nodes = new List<Node>(); // Lista de todos los nodos en la escena
     public List<EnemyPath> enemies = new List<EnemyPath>(); // Lista de enemigos en la escena
     public Player player;
+    //public GameObject positionPlayer;
 
     public PathFinding _pf;
     public static GameManager Instance;
+
+    public List<EnemyFOV> enemiesFOV = new List<EnemyFOV>();
+
+    [SerializeField] float speed;
+    [SerializeField] float rotationSpeed;
+
+    [SerializeField] LayerMask wallLayer;
 
     private void Start()
     {
@@ -46,52 +54,66 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Node playerNode = GetNearestNode(player.transform.position, nodes);
+        Node playerNode = GetNearestNode(player.transform.position, nodes);
+        bool isAnyEnemyAlerting = false;
 
-            // Calcular el camino A* para cada enemigo
-            foreach (var enemy in enemies)
+        foreach (var enemyFOV in enemiesFOV)
+        {
+            if (enemyFOV.IsPlayerInSight())
+            {
+                enemyFOV.FollowPlayer(player.transform.position); // Los enemigos con visión directa siguen al jugador
+                isAnyEnemyAlerting = true; // Activa la alerta global
+            }
+            else
+            {
+                enemyFOV.StopFollowingPlayer(); // Los enemigos sin visión directa vuelven a patrullar
+            }
+        }
+
+        // Si hay enemigos que ven al jugador, calculamos el camino para los que no tienen visión directa
+        if (isAnyEnemyAlerting)
+        {
+            AlertEnemiesWithoutSight(playerNode);
+        }
+    }
+
+
+    private void AlertEnemiesWithoutSight(Node playerNode)
+    {
+        foreach (var enemy in enemies)
+        {
+            var enemyFOV = enemy.GetComponent<EnemyFOV>();
+
+            // Si el enemigo no tiene visión del jugador, sigue su camino de nodos
+            if (!enemyFOV.IsPlayerInSight())
             {
                 Node startNode = GetNearestNode(enemy.transform.position, nodes);
                 List<Node> path = _pf.AStar(startNode, playerNode);
-                enemy.GetPath(path);
+                enemy.GetPath(path); // Asigna el camino hacia el nodo más cercano al jugador
+                enemy.FollowPath(); // Mueve el enemigo hacia el siguiente nodo en el camino
             }
         }
     }
-    // seteamos los nodos principio y final de los nodos 
-    //public void setstartingNode(Node startingNode)
-    //{
 
-    //    if (_startingNode != null) ChangeGameObjectColor(_startingNode.gameObject, Color.white);
-    //    _startingNode = startingNode;
-    //    ChangeGameObjectColor(startingNode.gameObject, Color.green);
 
-    //    enemyPath.SetPos(_startingNode.transform.position);
-    //}
-    //public void setgoalNode(Node goalNode)
-    //{
-    //    if (_goalNode != null) ChangeGameObjectColor(_goalNode.gameObject, Color.white);
-    //    _goalNode = goalNode;
-    //    ChangeGameObjectColor(goalNode.gameObject, Color.red);
-    //}
+
+
 
     public void ChangeGameObjectColor(GameObject obj, Color color)
     {
         obj.GetComponent<Renderer>().material.color = color;
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        //StartCoroutine(_pf.PaintBFS(_startingNode, _goalNode));
-    //        //_player.GetPath(_pf.BFS(_startingNode, _goalNode));
 
-    //        //_player.GetPath(_pf.DijkstraPath(_startingNode, _goalNode));
-    //        enemyPath.GetPath(_pf.AStar(GetNearestNode(enemyPath.transform.position,nodes), GetNearestNode(player.transform.position,nodes)));
-    //        //StartCoroutine(_pf.PaintGrredyBFS(_startingNode, _goalNode));
-    //    }
-    //}
+
+    //Vector3 dir = player.transform.position - enemyFOV.transform.position;
+    //dir.y = 0;
+
+
+    //Quaternion targetRotation = Quaternion.LookRotation(dir);
+    //enemyFOV.transform.rotation = Quaternion.Slerp(enemyFOV.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+
+    //enemyFOV.transform.position += dir.normalized * speed * Time.deltaTime;
 }
 

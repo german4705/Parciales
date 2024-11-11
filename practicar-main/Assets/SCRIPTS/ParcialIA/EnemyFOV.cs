@@ -4,31 +4,37 @@ using UnityEngine;
 
 public class EnemyFOV : MonoBehaviour
 {
+
+    FiniteStateMachine fsm;
     [SerializeField] float viewRadius;
     [SerializeField] float viewAngle;
 
     [SerializeField] GameObject player;
     [SerializeField] LayerMask wallLayer;
 
+    //constructor del patrol
+    public List<Transform> waypoints;
+    public float patrolSpeed = 2f;
+    public float rotationSpeed;
+
     void Start()
     {
-        
+        fsm = new FiniteStateMachine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (fieldOfView(player))
-        {
-            //enemy.GetComponent<Renderer>().material.color = Color.red;
-
-        }
-        else
-        {
-            //enemy.GetComponent<Renderer>().material.color = Color.white;
-            Debug.DrawLine(transform.position, player.transform.position, Color.red);
-        }
+        fsm.Update();
+        fsm.AddState(EnemyState.Patrol, new Patrol(this, waypoints, patrolSpeed, rotationSpeed));
+        fsm.ChangeState(EnemyState.Patrol);
     }
+
+    public bool IsPlayerInSight()
+    {
+        return fieldOfView(player);
+    }
+
 
     public bool fieldOfView(GameObject obj)
     {
@@ -36,7 +42,8 @@ public class EnemyFOV : MonoBehaviour
 
         if (dir.magnitude < viewRadius)
         {
-            Debug.Log("dentro de la pizza");
+            Debug.DrawLine(transform.position, obj.transform.position, Color.red);
+
             if (Vector3.Angle(transform.forward, dir) < viewAngle / 2)
             {
                 if (!Physics.Raycast(transform.position, dir, dir.magnitude, wallLayer))
@@ -52,6 +59,20 @@ public class EnemyFOV : MonoBehaviour
         }
         return false;
     }
+
+    public void FollowPlayer(Vector3 playerPosition)
+    {
+        Vector3 direction = playerPosition - transform.position;
+        transform.position += direction.normalized * patrolSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);
+    }
+
+    public void StopFollowingPlayer()
+    {
+        fsm.ChangeState(EnemyState.BackToPatrol); // Volvemos al estado de patrulla si no tiene al jugador en visión
+    }
+
+
 
     private void OnDrawGizmos()
     {
