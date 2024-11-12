@@ -11,12 +11,15 @@ public class Patrol : State
     private EnemyFOV enemy;
     public float rotationSpeed;
     // Constructor
-    public Patrol(EnemyFOV _enemyFOV, List<Transform> _waypoints, float _speed,float _rotationSpeed)
+    public LayerMask wallLayer;
+    List<EnemyFOV> enemies = GameManager.Instance.enemiesFOV;
+    public Patrol(EnemyFOV _enemyFOV, List<Transform> _waypoints, float _speed,float _rotationSpeed, LayerMask _wallLayer)
     {
         enemy = _enemyFOV;
         speed = _speed;
         waypoints = _waypoints;
         rotationSpeed = _rotationSpeed;
+        wallLayer = _wallLayer;
     }
 
     public override void OnEnter()
@@ -31,27 +34,53 @@ public class Patrol : State
 
     public override void OnUpdate()
     {
-        if (waypoints.Count == 0) return;
+        //foreach (var enemyFOV in enemies)
+        //{
+            if (enemy.IsPlayerInSight())
+            {
+                fsm.ChangeState(EnemyState.Follow);
+            }
+            else 
+            {
+             if(Insigth(enemy.transform.position, waypoints[currentWaypointIndex].transform.position))
+             {
+                Debug.DrawLine(enemy.transform.position, waypoints[currentWaypointIndex].transform.position);
 
-        
-        Transform targetWaypoint = waypoints[currentWaypointIndex].transform;
+                if (waypoints.Count == 0) return;
 
-        
-        Vector3 direction = (targetWaypoint.position - enemy.transform.position).normalized;
 
-        
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, lookRotation, enemy.rotationSpeed * Time.deltaTime);
+                Transform targetWaypoint = waypoints[currentWaypointIndex].transform;
 
-        
-        enemy.transform.position += enemy.transform.forward * speed * Time.deltaTime;
 
-        
-        if (Vector3.Distance(enemy.transform.position, targetWaypoint.position) < 0.05f)
-        {
+                Vector3 direction = (targetWaypoint.position - enemy.transform.position).normalized;
+
+
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, lookRotation, enemy.rotationSpeed * Time.deltaTime);
+
+
+                enemy.transform.position += enemy.transform.forward * speed * Time.deltaTime;
+
+
+                if (Vector3.Distance(enemy.transform.position, targetWaypoint.position) < 0.05f)
+                {
+
+                    currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+                }
+             }else
+            {
+                //a*
+            }
+
+            }
             
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
-        }
+        
+        //}
+    }
+
+    public bool Insigth(Vector3 start, Vector3 end) // que vea el primer waypoint de patrullaje.
+    {
+        return !Physics.Raycast(start, end - start, Vector3.Distance(start, end), wallLayer);
     }
 }
 

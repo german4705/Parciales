@@ -12,7 +12,7 @@ public class Test : MonoBehaviour
 
     private int currentWaypointIndex = 0; // Índice del waypoint actual
 
-    [SerializeField] LayerMask wallLayer;
+    public LayerMask wallLayer;
 
     public PathFinding _pf;
     public EnemyPath enemy;
@@ -66,7 +66,7 @@ public class Test : MonoBehaviour
                
                 
 
-                // Usa el nodo más cercano (nearestNode) como desees
+                
                 Debug.Log("Nodo más cercano enemigo: " + nearestNode);
                 Debug.Log("Nodo más cercano patrol : " + Patrol);
 
@@ -75,10 +75,7 @@ public class Test : MonoBehaviour
                 enemy.GetPath(path); // Asigna el camino hacia el nodo más cercano al jugador
                 enemy.FollowPath(); // Mueve el enemigo hacia el siguiente nodo en el camino
             }
-            else
-            {
-                Debug.LogError("GameManager.Instance es nulo. Asegúrate de que el GameManager está en la escena.");
-            }
+            
         }
     }
         

@@ -54,48 +54,59 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Node playerNode = GetNearestNode(player.transform.position, nodes);
-        bool isAnyEnemyAlerting = false;
+        //Node playerNode = GetNearestNode(player.transform.position, nodes);
+        //bool isAnyEnemyAlerting = false;
 
-        foreach (var enemyFOV in enemiesFOV)
-        {
-            if (enemyFOV.IsPlayerInSight())
-            {
-                enemyFOV.FollowPlayer(player.transform.position); // Los enemigos con visión directa siguen al jugador
-                isAnyEnemyAlerting = true; // Activa la alerta global
-            }
-            else
-            {
-                enemyFOV.StopFollowingPlayer(); // Los enemigos sin visión directa vuelven a patrullar
-            }
-        }
+        //foreach (var enemyFOV in enemiesFOV)
+        //{
+        //    if (enemyFOV.IsPlayerInSight())
+        //    {
+        //        enemyFOV.FollowPlayer(player.transform.position); // Los enemigos con visión directa siguen al jugador
+        //        isAnyEnemyAlerting = true; // Activa la alerta global
+        //    }
+        //    else
+        //    {
+        //        enemyFOV.StopFollowingPlayer(); // Los enemigos sin visión directa vuelven a patrullar
+        //    }
+        //}
 
-        // Si hay enemigos que ven al jugador, calculamos el camino para los que no tienen visión directa
-        if (isAnyEnemyAlerting)
-        {
-            AlertEnemiesWithoutSight(playerNode);
-        }
+        //// Si hay enemigos que ven al jugador, calculamos el camino para los que no tienen visión directa
+        //if (isAnyEnemyAlerting)
+        //{
+        //    AlertEnemiesWithoutSight(playerNode);
+        //}
     }
 
 
-    private void AlertEnemiesWithoutSight(Node playerNode)
+    //public void AlertEnemiesWithoutSight(Node playerNode)
+    //{
+    //    foreach (var enemy in enemies)
+    //    {
+    //        var enemyFOV = enemy.GetComponent<EnemyFOV>();
+
+    //        // Si el enemigo no tiene visión del jugador, sigue su camino de nodos
+    //        if (!enemyFOV.IsPlayerInSight())
+    //        {
+    //            Node startNode = GetNearestNode(enemy.transform.position, nodes);
+    //            List<Node> path = _pf.AStar(startNode, playerNode);
+    //            enemy.GetPath(path); // Asigna el camino hacia el nodo más cercano al jugador
+    //            enemy.FollowPath(); // Mueve el enemigo hacia el siguiente nodo en el camino
+    //        }
+    //    }
+    //}
+
+    public void AlertEnemies(Node playerNode)
     {
-        foreach (var enemy in enemies)
+        foreach(var enemy in enemies)
         {
-            var enemyFOV = enemy.GetComponent<EnemyFOV>();
-
-            // Si el enemigo no tiene visión del jugador, sigue su camino de nodos
-            if (!enemyFOV.IsPlayerInSight())
-            {
-                Node startNode = GetNearestNode(enemy.transform.position, nodes);
-                List<Node> path = _pf.AStar(startNode, playerNode);
-                enemy.GetPath(path); // Asigna el camino hacia el nodo más cercano al jugador
-                enemy.FollowPath(); // Mueve el enemigo hacia el siguiente nodo en el camino
-            }
+            Node startNode = GetNearestNode(enemy.transform.position, nodes);
+            List<Node> path = _pf.AStar(startNode, playerNode);
+            enemy.GetPath(path); // Asigna el camino hacia el nodo más cercano al jugador
+            enemy.FollowPath();
         }
+        
+
     }
-
-
 
 
 

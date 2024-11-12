@@ -1561,13 +1561,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 6
   viewAngle: 90
-  player: {fileID: 1051515829}
+  player: {fileID: 1051515833}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  waypoints: []
-  patrolSpeed: 2
-  rotationSpeed: 100
+  waypoints:
+  - {fileID: 2087925103}
+  - {fileID: 249020945}
+  - {fileID: 1929595733}
+  - {fileID: 951899760}
+  patrolSpeed: 5
+  rotationSpeed: 9
+  enemiesFOV:
+  - {fileID: 991880036}
+  - {fileID: 561204236}
+  - {fileID: 1613337533}
 --- !u!1001 &279925120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3746,13 +3754,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 6
   viewAngle: 90
-  player: {fileID: 1051515829}
+  player: {fileID: 1051515833}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  waypoints: []
-  patrolSpeed: 2
-  rotationSpeed: 100
+  waypoints:
+  - {fileID: 1542567026}
+  - {fileID: 1176645183}
+  - {fileID: 2087925103}
+  - {fileID: 249020945}
+  patrolSpeed: 5
+  rotationSpeed: 9
+  enemiesFOV:
+  - {fileID: 991880036}
+  - {fileID: 274905661}
+  - {fileID: 1613337533}
 --- !u!1001 &587115560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5491,16 +5507,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 3.55
   viewAngle: 90
-  player: {fileID: 1051515829}
+  player: {fileID: 1051515833}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
   waypoints:
   - {fileID: 350043798}
   - {fileID: 1154928656}
-  - {fileID: 760411941}
   patrolSpeed: 5
   rotationSpeed: 9
+  enemiesFOV:
+  - {fileID: 274905661}
+  - {fileID: 561204236}
+  - {fileID: 1613337533}
 --- !u!1001 &996638364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6373,7 +6392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkPointSaver: {fileID: 368503922}
-  _speed: 6
+  _speed: 10
   _force: 4
   _playerAnimator: {fileID: 1051515830}
   healt: 0
@@ -8320,7 +8339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2810827723386994177, guid: 344e5bc5b26a34542848678562e23c45, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.2
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 2810827723386994177, guid: 344e5bc5b26a34542848678562e23c45, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8583,6 +8602,63 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &1375326800
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -117.430786
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.2999992
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -83.527275
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504259220806075269, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819399281915773919, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
+      propertyPath: m_Name
+      value: PlayerArmature
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f269b47f315e0284f8824a9e948a3f60, type: 3}
 --- !u!1 &1388292335
 GameObject:
   m_ObjectHideFlags: 0
@@ -9571,13 +9647,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 5
   viewAngle: 90
-  player: {fileID: 1051515829}
+  player: {fileID: 1051515833}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  waypoints: []
+  waypoints:
+  - {fileID: 1444841413}
+  - {fileID: 1142695826}
+  - {fileID: 1712233530}
+  - {fileID: 1115105933}
   patrolSpeed: 2
-  rotationSpeed: 100
+  rotationSpeed: 4
+  enemiesFOV:
+  - {fileID: 991880036}
+  - {fileID: 274905661}
+  - {fileID: 561204236}
 --- !u!1001 &1627111360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11714,7 +11798,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083223241}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb292bfd01ca9d246bf29d419a52f815, type: 3}
   m_Name: 
@@ -11812,7 +11896,7 @@ Transform:
   m_GameObject: {fileID: 2083223241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -81.37, y: 4.41, z: -43.92}
+  m_LocalPosition: {x: -85.23, y: 4.41, z: -62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11825,7 +11909,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083223241}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8e333640fd0f94cbbd067549f4bebd, type: 3}
   m_Name: 
@@ -12516,3 +12600,4 @@ SceneRoots:
   - {fileID: 951899760}
   - {fileID: 84223420}
   - {fileID: 2083223246}
+  - {fileID: 1375326800}

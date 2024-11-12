@@ -9,25 +9,34 @@ public class EnemyFOV : MonoBehaviour
     [SerializeField] float viewRadius;
     [SerializeField] float viewAngle;
 
-    [SerializeField] GameObject player;
-    [SerializeField] LayerMask wallLayer;
+    [SerializeField] Player player;
+    public LayerMask wallLayer;
+
+
 
     //constructor del patrol
     public List<Transform> waypoints;
     public float patrolSpeed = 2f;
     public float rotationSpeed;
 
+    public List<EnemyFOV> enemiesFOV = new List<EnemyFOV>();
+
+    //contructor de patrol
+    
+
     void Start()
     {
         fsm = new FiniteStateMachine();
+        fsm.AddState(EnemyState.Patrol, new Patrol(this, waypoints, patrolSpeed, rotationSpeed,wallLayer));
+        fsm.AddState(EnemyState.Follow, new Follow(player,this,patrolSpeed,rotationSpeed));
+        fsm.ChangeState(EnemyState.Patrol);
     }
 
     // Update is called once per frame
     void Update()
     {
         fsm.Update();
-        fsm.AddState(EnemyState.Patrol, new Patrol(this, waypoints, patrolSpeed, rotationSpeed));
-        fsm.ChangeState(EnemyState.Patrol);
+       
     }
 
     public bool IsPlayerInSight()
@@ -36,7 +45,7 @@ public class EnemyFOV : MonoBehaviour
     }
 
 
-    public bool fieldOfView(GameObject obj)
+    public bool fieldOfView(Player obj)
     {
         Vector3 dir = obj.transform.position - transform.position;
 
