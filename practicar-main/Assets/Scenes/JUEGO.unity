@@ -1576,6 +1576,7 @@ MonoBehaviour:
   - {fileID: 991880036}
   - {fileID: 561204236}
   - {fileID: 1613337533}
+  enemypath: {fileID: 274905659}
 --- !u!1001 &279925120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3769,6 +3770,7 @@ MonoBehaviour:
   - {fileID: 991880036}
   - {fileID: 274905661}
   - {fileID: 1613337533}
+  enemypath: {fileID: 561204234}
 --- !u!1001 &587115560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5520,6 +5522,7 @@ MonoBehaviour:
   - {fileID: 274905661}
   - {fileID: 561204236}
   - {fileID: 1613337533}
+  enemypath: {fileID: 991880034}
 --- !u!1001 &996638364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5953,7 +5956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6552ccd11c8fd4145961a6f216613538, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -90.93
+      value: -88.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6552ccd11c8fd4145961a6f216613538, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5961,7 +5964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6552ccd11c8fd4145961a6f216613538, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -64.41
+      value: -28.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6552ccd11c8fd4145961a6f216613538, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6701,7 +6704,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -7069,7 +7072,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -8928,7 +8931,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -9656,12 +9659,13 @@ MonoBehaviour:
   - {fileID: 1142695826}
   - {fileID: 1712233530}
   - {fileID: 1115105933}
-  patrolSpeed: 2
-  rotationSpeed: 4
+  patrolSpeed: 5
+  rotationSpeed: 9
   enemiesFOV:
   - {fileID: 991880036}
   - {fileID: 274905661}
   - {fileID: 561204236}
+  enemypath: {fileID: 1613337523}
 --- !u!1001 &1627111360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10158,7 +10162,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -11052,7 +11056,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -11829,7 +11833,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -11896,7 +11900,7 @@ Transform:
   m_GameObject: {fileID: 2083223241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -85.23, y: 4.41, z: -62}
+  m_LocalPosition: {x: -98.4, y: 4.41, z: -59.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

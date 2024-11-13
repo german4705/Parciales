@@ -21,14 +21,17 @@ public class EnemyFOV : MonoBehaviour
 
     public List<EnemyFOV> enemiesFOV = new List<EnemyFOV>();
 
-    //contructor de patrol
-    
-
+    //contructor de backtopatrol
+    public PathFinding _pf;
+    public EnemyPath enemypath;
     void Start()
     {
         fsm = new FiniteStateMachine();
         fsm.AddState(EnemyState.Patrol, new Patrol(this, waypoints, patrolSpeed, rotationSpeed,wallLayer));
         fsm.AddState(EnemyState.Follow, new Follow(player,this,patrolSpeed,rotationSpeed));
+        fsm.AddState(EnemyState.PathBackToPatrol, new BackToPatrol(_pf,waypoints,enemiesFOV, enemypath));
+        fsm.AddState(EnemyState.LinePathToPatrol,new LineBackToPatrol(wallLayer, waypoints,this));
+        fsm.AddState(EnemyState.AlertEnemies, new AlertPahtFinding(_pf, waypoints, enemiesFOV, enemypath, player, this));
         fsm.ChangeState(EnemyState.Patrol);
     }
 
@@ -69,17 +72,17 @@ public class EnemyFOV : MonoBehaviour
         return false;
     }
 
-    public void FollowPlayer(Vector3 playerPosition)
-    {
-        Vector3 direction = playerPosition - transform.position;
-        transform.position += direction.normalized * patrolSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);
-    }
+    //public void FollowPlayer(Vector3 playerPosition)
+    //{
+    //    Vector3 direction = playerPosition - transform.position;
+    //    transform.position += direction.normalized * patrolSpeed * Time.deltaTime;
+    //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * rotationSpeed);
+    //}
 
-    public void StopFollowingPlayer()
-    {
-        fsm.ChangeState(EnemyState.BackToPatrol); // Volvemos al estado de patrulla si no tiene al jugador en visión
-    }
+    //public void StopFollowingPlayer()
+    //{
+    //    //fsm.ChangeState(EnemyState.BackToPatrol); // Volvemos al estado de patrulla si no tiene al jugador en visión
+    //}
 
 
 

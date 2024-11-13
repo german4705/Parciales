@@ -25,9 +25,9 @@ public class Follow : State
     {
         Debug.Log("Entran al estado de persiguiendo");
 
-        Node playerNode = GameManager.Instance.GetNearestNode(player.transform.position, Nodes);
+        //Node playerNode = GameManager.Instance.GetNearestNode(player.transform.position, Nodes);
 
-        GameManager.Instance.AlertEnemies(playerNode);
+        //GameManager.Instance.AlertEnemies(playerNode);
 
 
 
@@ -40,35 +40,29 @@ public class Follow : State
 
     public override void OnUpdate()
     {
-        if(enemifov.IsPlayerInSight())
+        
+        if (enemifov.IsPlayerInSight())
         {
-           
-            FollowPlayer(player.transform.position);
+            fsm.ChangeState(EnemyState.Follow);
+
             
-            
+            foreach (var enemyFov in enemies)
+            {
+                if (enemyFov != enemifov) 
+                {
+                    fsm.ChangeState(EnemyState.AlertEnemies);
+                }
+            }
+
+
         }
         else
         {
-            fsm.ChangeState(EnemyState.Patrol);
+            fsm.ChangeState(EnemyState.LinePathToPatrol);
         }
 
         
-        //bool isAnyEnemyAlerting = false;
-
-        //foreach (var enemyFOV in enemies)
-        //{
-
-
-        //    GameManager.Instance.AlertEnemiesWithoutSight(playerNode);
-
-
-
-        //}
-
-        //if (isAnyEnemyAlerting)
-        //{
-        //    GameManager.Instance.AlertEnemiesWithoutSight(playerNode);
-        //}
+        
 
 
     }

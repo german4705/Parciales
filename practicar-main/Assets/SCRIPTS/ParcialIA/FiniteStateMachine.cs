@@ -36,6 +36,6 @@ public class FiniteStateMachine
 
 public enum EnemyState
 {
-   Patrol, PathFinding, Follow , BackToPatrol
+   Patrol, AlertEnemies, Follow , PathBackToPatrol,LinePathToPatrol
 
 }
