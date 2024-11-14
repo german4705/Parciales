@@ -33,23 +33,23 @@ public class LineBackToPatrol : State
             Debug.DrawLine(enemy.transform.position, waypoints[currentWaypointIndex].transform.position);
             if (waypoints.Count == 0) return;
 
-            // Referencia al waypoint actual
+           
             Transform targetWaypoint = waypoints[currentWaypointIndex].transform;
 
-            // Calcular dirección hacia el waypoint
+            
             Vector3 direction = (targetWaypoint.position - enemy.transform.position).normalized;
 
-            // Rotar gradualmente hacia el waypoint para que el forward apunte a él
+            
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, lookRotation, enemy.rotationSpeed * Time.deltaTime);
 
-            // Mover hacia adelante en la dirección actual del forward
+           
             enemy.transform.position += enemy.transform.forward * speed * Time.deltaTime;
 
-            //Comprobar si hemos llegado al waypoint actual
+            
             if (Vector3.Distance(enemy.transform.position, targetWaypoint.position) < 0.5f)
             {
-                // Cambiar al siguiente waypoint
+                
                 fsm.ChangeState(EnemyState.Patrol);
             }
         }else

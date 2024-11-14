@@ -117,14 +117,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    //Vector3 dir = player.transform.position - enemyFOV.transform.position;
-    //dir.y = 0;
-
-
-    //Quaternion targetRotation = Quaternion.LookRotation(dir);
-    //enemyFOV.transform.rotation = Quaternion.Slerp(enemyFOV.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-
-    //enemyFOV.transform.position += dir.normalized * speed * Time.deltaTime;
+   
 }
 

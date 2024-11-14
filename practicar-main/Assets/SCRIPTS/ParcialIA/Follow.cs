@@ -43,16 +43,16 @@ public class Follow : State
         
         if (enemifov.IsPlayerInSight())
         {
-            fsm.ChangeState(EnemyState.Follow);
 
-            
-            foreach (var enemyFov in enemies)
-            {
-                if (enemyFov != enemifov) 
-                {
-                    fsm.ChangeState(EnemyState.AlertEnemies);
-                }
-            }
+            FollowPlayer(player.transform.position);
+
+            //foreach (var enemyFov in enemies)
+            //{
+
+
+            //    fsm.ChangeState(EnemyState.AlertEnemies);
+
+            //}
 
 
         }
@@ -61,8 +61,8 @@ public class Follow : State
             fsm.ChangeState(EnemyState.LinePathToPatrol);
         }
 
-        
-        
+
+
 
 
     }

@@ -40,7 +40,7 @@ public class Patrol : State
         {
             
             fsm.ChangeState(EnemyState.Follow);
-
+            // aca esta el problema. 
             
             //foreach (var enemyFov in enemies)
             //{
